@@ -29,11 +29,11 @@ export default defineConfig(({ mode }) => {
             'vendor-antd': ['antd', 'antd-mobile', '@ant-design/icons'],
             // 地图库
             'vendor-map': ['leaflet'],
-            // Agent 系统核心
+            // Agent 系统核心 - 已根据实际文件修正
             'agent-core': [
               './src/services/agentSystem.ts',
-              './src/services/simpleAgentSystem.ts',
-              './src/services/businessAgentImplementation.ts',
+              './src/services/agentA.ts',
+              './src/services/agentB_Enhanced.ts',
             ],
             // 移动端页面
             'pages-mobile': [

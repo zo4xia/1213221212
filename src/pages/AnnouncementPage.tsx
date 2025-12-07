@@ -155,7 +155,10 @@ const AnnouncementPage = () => {
                   boxShadow: '0 0 0 2px #fff inset',
                 }}
                 onClick={() => {
-                  Toast.show({ content: `查看: ${item.title}`, position: 'bottom' });
+                  Toast.show({
+                    content: `查看: ${item.title}`,
+                    position: 'bottom',
+                  });
                 }}
               >
                 {/* 标签和日期 */}

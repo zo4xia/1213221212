@@ -1,0 +1,39 @@
+@keyframes pulse-opacity {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes bounce-sm {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15%);
+  }
+}
+
+@keyframes ping-lg {
+  75%,
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.animate-pulse-opacity {
+  animation: pulse-opacity 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-bounce-sm {
+  animation: bounce-sm 1.5s infinite;
+}
+
+.animate-ping-lg {
+  animation: ping-lg 1.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}

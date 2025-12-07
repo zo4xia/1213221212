@@ -215,12 +215,18 @@ const CheckInPage = () => {
               }}
             >
               <CheckCircleOutline
-                style={{ fontSize: '20px', color: '#4caf50', marginRight: '8px' }}
+                style={{
+                  fontSize: '20px',
+                  color: '#4caf50',
+                  marginRight: '8px',
+                }}
               />
               <span style={{ color: '#4caf50', fontWeight: 'bold' }}>
                 已打卡
               </span>
-              <div style={{ fontSize: '12px', color: '#718096', marginTop: '4px' }}>
+              <div
+                style={{ fontSize: '12px', color: '#718096', marginTop: '4px' }}
+              >
                 {spot.checkedInTime}
               </div>
             </div>

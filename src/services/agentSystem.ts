@@ -1,12 +1,12 @@
 /**
  * 🔒 CRITICAL_DO_NOT_DELETE - Agent核心系统
- * 
+ *
  * 本文件是「考试作弊四人组」架构的核心实现
  * - Agent A (眼睛): 监听用户输入，传递给B
  * - Agent B (瘩子): 调用API，直接输出给用户 (B直出版)
  * - Agent C (小抄): 本地数据查询
  * - Agent D (心): 系统监控和日志
- * 
+ *
  * @see 251207-1857-AGENTS.md - 战略详细提示
  * @see docs/考试作弊版Agent设计.md
  */

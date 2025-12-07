@@ -445,7 +445,10 @@ const AdminHotKnowledgeConfig: React.FC = () => {
                 placeholder="搜索问题、答案或关键词..."
                 value={searchText}
                 onChange={e => setSearchText(e.target.value)}
-                style={{ width: 'clamp(200px, 50vw, 250px)', marginLeft: '2vw' }}
+                style={{
+                  width: 'clamp(200px, 50vw, 250px)',
+                  marginLeft: '2vw',
+                }}
                 allowClear
               />
             </div>
@@ -455,7 +458,10 @@ const AdminHotKnowledgeConfig: React.FC = () => {
               <Select
                 value={filterCategory}
                 onChange={setFilterCategory}
-                style={{ width: 'clamp(120px, 30vw, 150px)', marginLeft: '2vw' }}
+                style={{
+                  width: 'clamp(120px, 30vw, 150px)',
+                  marginLeft: '2vw',
+                }}
               >
                 <Option value="全部">全部分类</Option>
                 {KNOWLEDGE_CATEGORIES.map(category => (

@@ -109,20 +109,20 @@ const LoginPage = () => {
 
     try {
       Toast.show({ content: '登录中...', icon: 'loading', duration: 0 });
-      
+
       // 调用登录API
       const response = await apiService.auth.login(phone, code);
-      
+
       if (response.success && response.data) {
         // 存储token到localStorage
         localStorage.setItem('token', response.data.token);
-        
+
         Toast.show({
           content: response.data.message || '登录成功！欢迎来到东里村',
           duration: 2000,
           position: 'bottom',
         });
-        
+
         // 跳转到 Agent 对话页 (ChatPage)
         setTimeout(() => navigate('/chat'), 2000);
       } else {
@@ -155,10 +155,10 @@ const LoginPage = () => {
 
     try {
       Toast.show({ content: '发送中...', icon: 'loading', duration: 0 });
-      
+
       // 调用发送验证码API
       const response = await apiService.auth.sendCode(phone);
-      
+
       if (response.success) {
         Toast.show({
           content: response.data?.message || '验证码已发送至您的手机',
@@ -237,7 +237,10 @@ const LoginPage = () => {
             placeholder="请输入11位手机号"
             value={phone}
             onChange={setPhone}
-            style={{ height: 'clamp(35px, 8vw, 40px)', border: '1px solid #e8e8e8' }}
+            style={{
+              height: 'clamp(35px, 8vw, 40px)',
+              border: '1px solid #e8e8e8',
+            }}
           />
         </div>
 
@@ -249,12 +252,13 @@ const LoginPage = () => {
               placeholder="6位验证码"
               value={code}
               onChange={setCode}
-              style={{ height: 'clamp(35px, 8vw, 40px)', border: '1px solid #e8e8e8', flex: 1 }}
+              style={{
+                height: 'clamp(35px, 8vw, 40px)',
+                border: '1px solid #e8e8e8',
+                flex: 1,
+              }}
             />
-            <CountdownButton
-              phone={phone}
-              onSend={handleSendCode}
-            />
+            <CountdownButton phone={phone} onSend={handleSendCode} />
           </Space>
         </div>
 

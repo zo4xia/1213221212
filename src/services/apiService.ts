@@ -12,7 +12,7 @@ async function request<T>(
   options: RequestInit = {}
 ): Promise<{ success: boolean; data?: T; error?: string; message?: string }> {
   const url = `${API_BASE_URL}${endpoint}`;
-  
+
   const config: RequestInit = {
     ...options,
     headers: {
@@ -23,11 +23,11 @@ async function request<T>(
 
   try {
     const response = await fetch(url, config);
-    
+
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
-    
+
     const result = await response.json();
     return result;
   } catch (error) {
@@ -50,15 +50,17 @@ export const spotsApi = {
     if (params?.type) queryParams.append('type', params.type);
     if (params?.page) queryParams.append('page', params.page.toString());
     if (params?.limit) queryParams.append('limit', params.limit.toString());
-    
-    const queryString = queryParams.toString() ? `?${queryParams.toString()}` : '';
+
+    const queryString = queryParams.toString()
+      ? `?${queryParams.toString()}`
+      : '';
     return request<any[]>(`/spots${queryString}`);
   },
 
   // 获取景点详情
   getSpotById: async (id: string) => {
     return request<any>(`/spots/${id}`);
-  }
+  },
 };
 
 // 人物API
@@ -77,15 +79,17 @@ export const figuresApi = {
     if (params?.year) queryParams.append('year', params.year.toString());
     if (params?.page) queryParams.append('page', params.page.toString());
     if (params?.limit) queryParams.append('limit', params.limit.toString());
-    
-    const queryString = queryParams.toString() ? `?${queryParams.toString()}` : '';
+
+    const queryString = queryParams.toString()
+      ? `?${queryParams.toString()}`
+      : '';
     return request<any[]>(`/figures${queryString}`);
   },
 
   // 获取人物详情
   getFigureById: async (id: string) => {
     return request<any>(`/figures/${id}`);
-  }
+  },
 };
 
 // 公告API
@@ -100,10 +104,12 @@ export const announcementsApi = {
     if (params?.type) queryParams.append('type', params.type);
     if (params?.page) queryParams.append('page', params.page.toString());
     if (params?.limit) queryParams.append('limit', params.limit.toString());
-    
-    const queryString = queryParams.toString() ? `?${queryParams.toString()}` : '';
+
+    const queryString = queryParams.toString()
+      ? `?${queryParams.toString()}`
+      : '';
     return request<any[]>(`/announcements${queryString}`);
-  }
+  },
 };
 
 // 认证API
@@ -118,11 +124,14 @@ export const authApi = {
 
   // 用户登录
   login: async (phone: string, code: string) => {
-    return request<{ user: any; token: string; message: string }>(`/auth/login`, {
-      method: 'POST',
-      body: JSON.stringify({ phone, code }),
-    });
-  }
+    return request<{ user: any; token: string; message: string }>(
+      `/auth/login`,
+      {
+        method: 'POST',
+        body: JSON.stringify({ phone, code }),
+      }
+    );
+  },
 };
 
 // 用户API
@@ -134,7 +143,7 @@ export const userApi = {
         Authorization: `Bearer ${token}`,
       },
     });
-  }
+  },
 };
 
 // 打卡API
@@ -157,7 +166,7 @@ export const checkinApi = {
         Authorization: `Bearer ${token}`,
       },
     });
-  }
+  },
 };
 
 // 导出所有API服务

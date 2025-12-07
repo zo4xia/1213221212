@@ -13,9 +13,11 @@ import './global.css';
 
 const NatureSpotsListPage = () => {
   const navigate = useNavigate();
-  
+
   // 过滤自然景点（包含nature和culture）
-  const natureSpots = SPOTS_DATA.filter(s => s.category === 'nature' || s.category === 'culture');
+  const natureSpots = SPOTS_DATA.filter(
+    s => s.category === 'nature' || s.category === 'culture'
+  );
 
   const handleBack = () => {
     navigate('/category');
@@ -42,12 +44,14 @@ const NatureSpotsListPage = () => {
       <NavBar
         back="返回"
         onBack={handleBack}
-        style={{
-          '--height': '50px',
-          backgroundColor: '#16a34a',
-          color: 'white',
-          '--border-bottom': 'none',
-        } as any}
+        style={
+          {
+            '--height': '50px',
+            backgroundColor: '#16a34a',
+            color: 'white',
+            '--border-bottom': 'none',
+          } as any
+        }
       >
         <span style={{ color: 'white', fontWeight: 600 }}>🌿 自然景点</span>
       </NavBar>
@@ -58,7 +62,7 @@ const NatureSpotsListPage = () => {
         heightRatio={0.333}
         center={[118.204, 25.236]}
         zoom={16.5}
-        onSelectSpot={(spot) => handleSpotClick(spot.id)}
+        onSelectSpot={spot => handleSpotClick(spot.id)}
       />
 
       {/* 列表标题 */}
@@ -83,18 +87,23 @@ const NatureSpotsListPage = () => {
               key={spot.id}
               onClick={() => handleSpotClick(spot.id)}
               arrow={<RightOutline />}
-              style={{
-                '--padding-left': '16px',
-                '--padding-right': '16px',
-              } as any}
+              style={
+                {
+                  '--padding-left': '16px',
+                  '--padding-right': '16px',
+                } as any
+              }
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div
+                style={{ display: 'flex', alignItems: 'center', gap: '12px' }}
+              >
                 {/* 绿色圆点 */}
                 <div
                   style={{
                     width: 'clamp(28px, 8vw, 36px)',
                     height: 'clamp(28px, 8vw, 36px)',
-                    background: spot.category === 'nature' ? '#16a34a' : '#ca8a04',
+                    background:
+                      spot.category === 'nature' ? '#16a34a' : '#ca8a04',
                     borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',
@@ -109,7 +118,13 @@ const NatureSpotsListPage = () => {
                 </div>
                 {/* 景点信息 */}
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontWeight: 600, color: '#1f2937', marginBottom: '2px' }}>
+                  <div
+                    style={{
+                      fontWeight: 600,
+                      color: '#1f2937',
+                      marginBottom: '2px',
+                    }}
+                  >
                     {spot.name}
                   </div>
                   <div style={{ fontSize: '12px', color: '#6b7280' }}>
@@ -117,15 +132,28 @@ const NatureSpotsListPage = () => {
                   </div>
                   {/* 标签 */}
                   {spot.tags && spot.tags.length > 0 && (
-                    <div style={{ marginTop: '4px', display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+                    <div
+                      style={{
+                        marginTop: '4px',
+                        display: 'flex',
+                        gap: '4px',
+                        flexWrap: 'wrap',
+                      }}
+                    >
                       {spot.tags.slice(0, 2).map((tag, i) => (
                         <span
                           key={i}
                           style={{
                             fontSize: '10px',
                             padding: '2px 6px',
-                            background: spot.category === 'nature' ? '#dcfce7' : '#fef9c3',
-                            color: spot.category === 'nature' ? '#15803d' : '#a16207',
+                            background:
+                              spot.category === 'nature'
+                                ? '#dcfce7'
+                                : '#fef9c3',
+                            color:
+                              spot.category === 'nature'
+                                ? '#15803d'
+                                : '#a16207',
                             borderRadius: '10px',
                           }}
                         >
@@ -139,7 +167,7 @@ const NatureSpotsListPage = () => {
             </List.Item>
           ))}
         </List>
-        
+
         {/* 底部提示 */}
         <div
           style={{

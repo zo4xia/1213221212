@@ -1,11 +1,11 @@
 /**
  * MapView - 高德地图组件（独立封装，多页面复用）
- * 
+ *
  * 白嫖策略：
  * - 地图渲染：高德SDK
  * - 导航功能：跳转支付宝/微信
  * - 定位：写死中心坐标（实际导航时外部APP定位）
- * 
+ *
  * 功能：
  * - 1/3屏动态高度（移动端优先）
  * - 景点标记 + 分类颜色
@@ -19,27 +19,27 @@ import { openMapNavigation } from '../utils/mapUtils';
 
 // 分类颜色配置
 const CATEGORY_COLORS: Record<string, string> = {
-  red: '#dc2626',      // 红色文旅
-  nature: '#16a34a',   // 自然风光
-  culture: '#ca8a04',  // 文化民俗
-  people: '#2563eb',   // 东里人物
-  media: '#9333ea',    // 自媒体
-  event: '#ea580c',    // 活动公告
-  default: '#64748b',  // 默认灰色
+  red: '#dc2626', // 红色文旅
+  nature: '#16a34a', // 自然风光
+  culture: '#ca8a04', // 文化民俗
+  people: '#2563eb', // 东里人物
+  media: '#9333ea', // 自媒体
+  event: '#ea580c', // 活动公告
+  default: '#64748b', // 默认灰色
 };
 
 interface MapViewProps {
-  spots: Spot[];                          // 景点数据
-  center?: [number, number];              // 地图中心 [lng, lat]
-  zoom?: number;                          // 缩放级别
-  heightRatio?: number;                   // 高度占比，默认0.333（1/3屏）
-  onSelectSpot?: (spot: Spot) => void;    // 点击景点回调
-  onNavigate?: (spot: Spot) => void;      // 点击导航回调
+  spots: Spot[]; // 景点数据
+  center?: [number, number]; // 地图中心 [lng, lat]
+  zoom?: number; // 缩放级别
+  heightRatio?: number; // 高度占比，默认0.333（1/3屏）
+  onSelectSpot?: (spot: Spot) => void; // 点击景点回调
+  onNavigate?: (spot: Spot) => void; // 点击导航回调
 }
 
 const MapView: React.FC<MapViewProps> = ({
   spots,
-  center = [118.205, 25.235],  // 东里村中心坐标
+  center = [118.205, 25.235], // 东里村中心坐标
   zoom = 16.5,
   heightRatio = 0.333,
   onSelectSpot,
@@ -65,18 +65,19 @@ const MapView: React.FC<MapViewProps> = ({
   }, [heightRatio]);
 
   // 显示气泡窗口
-  const showInfoWindow = useCallback((map: AMap.Map, spot: Spot, position: [number, number]) => {
-    const color = CATEGORY_COLORS[spot.category] || CATEGORY_COLORS.default;
-    
-    // 关闭之前的气泡
-    if (infoWindowRef.current) {
-      infoWindowRef.current.close();
-    }
+  const showInfoWindow = useCallback(
+    (map: AMap.Map, spot: Spot, position: [number, number]) => {
+      const color = CATEGORY_COLORS[spot.category] || CATEGORY_COLORS.default;
 
-    // 精致气泡卡片
-    const infoContent = document.createElement('div');
-    infoContent.style.cssText = 'animation: fadeIn 0.2s ease-out;';
-    infoContent.innerHTML = `
+      // 关闭之前的气泡
+      if (infoWindowRef.current) {
+        infoWindowRef.current.close();
+      }
+
+      // 精致气泡卡片
+      const infoContent = document.createElement('div');
+      infoContent.style.cssText = 'animation: fadeIn 0.2s ease-out;';
+      infoContent.innerHTML = `
       <div style="
         width: 90vw;
         max-width: 280px;
@@ -154,59 +155,62 @@ const MapView: React.FC<MapViewProps> = ({
       </div>
     `;
 
-    const infoWindow = new window.AMap.InfoWindow({
-      content: infoContent,
-      offset: new window.AMap.Pixel(0, -30),
-      isCustom: true,
-    });
+      const infoWindow = new window.AMap.InfoWindow({
+        content: infoContent,
+        offset: new window.AMap.Pixel(0, -30),
+        isCustom: true,
+      });
 
-    infoWindowRef.current = infoWindow;
-    infoWindow.open(map, position);
+      infoWindowRef.current = infoWindow;
+      infoWindow.open(map, position);
 
-    // 绑定按钮事件
-    setTimeout(() => {
-      const navBtn = infoContent.querySelector('#nav-btn');
-      const detailBtn = infoContent.querySelector('#detail-btn');
-      
-      if (navBtn) {
-        navBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          const [lng, lat] = spot.coord.split(',').map(Number);
-          if (onNavigate) {
-            onNavigate(spot);
-          } else {
-            // 默认调用高德导航
-            openMapNavigation(lat, lng, spot.name);
-          }
-        });
-      }
-      
-      if (detailBtn) {
-        detailBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          onSelectSpot?.(spot);
-        });
-      }
-    }, 0);
-  }, [onSelectSpot, onNavigate]);
+      // 绑定按钮事件
+      setTimeout(() => {
+        const navBtn = infoContent.querySelector('#nav-btn');
+        const detailBtn = infoContent.querySelector('#detail-btn');
+
+        if (navBtn) {
+          navBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            const [lng, lat] = spot.coord.split(',').map(Number);
+            if (onNavigate) {
+              onNavigate(spot);
+            } else {
+              // 默认调用高德导航
+              openMapNavigation(lat, lng, spot.name);
+            }
+          });
+        }
+
+        if (detailBtn) {
+          detailBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            onSelectSpot?.(spot);
+          });
+        }
+      }, 0);
+    },
+    [onSelectSpot, onNavigate]
+  );
 
   // 渲染景点标记
-  const renderMarkers = useCallback((map: AMap.Map) => {
-    // 清除旧标记
-    markersRef.current.forEach(marker => map.remove(marker));
-    markersRef.current = [];
+  const renderMarkers = useCallback(
+    (map: AMap.Map) => {
+      // 清除旧标记
+      markersRef.current.forEach(marker => map.remove(marker));
+      markersRef.current = [];
 
-    spots.forEach(spot => {
-      if (!spot.coord) return;
-      
-      const [lng, lat] = spot.coord.split(',').map(Number);
-      if (isNaN(lng) || isNaN(lat)) return;
+      spots.forEach(spot => {
+        if (!spot.coord) return;
 
-      const color = CATEGORY_COLORS[spot.category] || CATEGORY_COLORS.default;
+        const [lng, lat] = spot.coord.split(',').map(Number);
+        if (isNaN(lng) || isNaN(lat)) return;
 
-      // 美化标记点
-      const markerElement = document.createElement('div');
-      markerElement.innerHTML = `
+        const color = CATEGORY_COLORS[spot.category] || CATEGORY_COLORS.default;
+
+        // 美化标记点
+        const markerElement = document.createElement('div');
+        markerElement.innerHTML = `
         <div style="
           display: flex;
           flex-direction: column;
@@ -255,21 +259,23 @@ const MapView: React.FC<MapViewProps> = ({
         </div>
       `;
 
-      const marker = new window.AMap.Marker({
-        position: [lng, lat],
-        content: markerElement,
-        title: spot.name,
-        extData: spot,
-      });
+        const marker = new window.AMap.Marker({
+          position: [lng, lat],
+          content: markerElement,
+          title: spot.name,
+          extData: spot,
+        });
 
-      marker.on('click', () => {
-        showInfoWindow(map, spot, [lng, lat]);
-      });
+        marker.on('click', () => {
+          showInfoWindow(map, spot, [lng, lat]);
+        });
 
-      map.add(marker);
-      markersRef.current.push(marker);
-    });
-  }, [spots, showInfoWindow]);
+        map.add(marker);
+        markersRef.current.push(marker);
+      });
+    },
+    [spots, showInfoWindow]
+  );
 
   // 地图初始化
   useEffect(() => {

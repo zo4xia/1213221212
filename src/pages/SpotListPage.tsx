@@ -108,7 +108,7 @@ const SpotListPage = () => {
       <MapView
         spots={SPOTS_DATA}
         heightRatio={0.333}
-        onSelectSpot={(spot) => navigate(`/spotdetail/${spot.id}`)}
+        onSelectSpot={spot => navigate(`/spotdetail/${spot.id}`)}
       />
 
       {/* 列表标题 */}
@@ -126,72 +126,72 @@ const SpotListPage = () => {
       {/* 下拉刷新列表 */}
       <div style={{ flex: 1, overflow: 'auto' }}>
         <PullToRefresh onRefresh={handleRefresh}>
-        {spots.length > 0 ? (
-          <List style={{ flex: 1, overflow: 'auto' }}>
-            {spots.map(spot => (
-              <List.Item
-                key={spot.id}
-                onClick={() => handleSpotClick(spot.id)}
-                style={
-                  {
-                    padding: '12px 20px',
-                    borderBottom: '1px solid #f0f0f0',
-                    cursor: 'pointer',
-                  } as any
-                }
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    width: '100%',
-                  }}
+          {spots.length > 0 ? (
+            <List style={{ flex: 1, overflow: 'auto' }}>
+              {spots.map(spot => (
+                <List.Item
+                  key={spot.id}
+                  onClick={() => handleSpotClick(spot.id)}
+                  style={
+                    {
+                      padding: '12px 20px',
+                      borderBottom: '1px solid #f0f0f0',
+                      cursor: 'pointer',
+                    } as any
+                  }
                 >
                   <div
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '10px',
-                      flex: 1,
+                      justifyContent: 'space-between',
+                      width: '100%',
                     }}
                   >
-                    <Badge
-                      content="景点"
-                      style={{ '--badge-background-color': '#f5222d' } as any}
-                    />
-                    <div>
-                      <div
-                        style={{
-                          fontSize: '16px',
-                          fontWeight: 'bold',
-                          color: '#2d3748',
-                        }}
-                      >
-                        🚩 {spot.name}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: '14px',
-                          color: '#718096',
-                          marginTop: '4px',
-                        }}
-                      >
-                        地址：{spot.address}
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '10px',
+                        flex: 1,
+                      }}
+                    >
+                      <Badge
+                        content="景点"
+                        style={{ '--badge-background-color': '#f5222d' } as any}
+                      />
+                      <div>
+                        <div
+                          style={{
+                            fontSize: '16px',
+                            fontWeight: 'bold',
+                            color: '#2d3748',
+                          }}
+                        >
+                          🚩 {spot.name}
+                        </div>
+                        <div
+                          style={{
+                            fontSize: '14px',
+                            color: '#718096',
+                            marginTop: '4px',
+                          }}
+                        >
+                          地址：{spot.address}
+                        </div>
                       </div>
                     </div>
+                    <RightOutlined
+                      style={{ color: '#bdbdbd', fontSize: '16px' }}
+                    />
                   </div>
-                  <RightOutlined
-                    style={{ color: '#bdbdbd', fontSize: '16px' }}
-                  />
-                </div>
-              </List.Item>
-            ))}
-          </List>
-        ) : (
-          <Empty description="暂无景点数据" style={{ marginTop: '50px' }} />
-        )}
-      </PullToRefresh>
+                </List.Item>
+              ))}
+            </List>
+          ) : (
+            <Empty description="暂无景点数据" style={{ marginTop: '50px' }} />
+          )}
+        </PullToRefresh>
       </div>
 
       {/* 全局 Agent 悬浮按钮 */}

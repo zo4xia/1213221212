@@ -40,28 +40,28 @@ const MobileApp = () => {
             {/* 入口流程 */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/home" element={<HomePage />} />
-            
+
             {/* 核心导航 */}
             <Route path="/category" element={<CategoryPage />} />
             <Route path="/chat" element={<ChatPage />} />
-            
+
             {/* 景点相关 */}
             <Route path="/red-culture" element={<RedCultureListPage />} />
             <Route path="/nature-spots" element={<NatureSpotsListPage />} />
             <Route path="/spotlist/:type" element={<SpotListPage />} />
             <Route path="/spotdetail/:id" element={<SpotDetailPage />} />
             <Route path="/checkin/:spotId" element={<CheckInPage />} />
-            
+
             {/* 人物分类 */}
             <Route path="/figures" element={<FiguresCategoryPage />} />
             <Route path="/figures/students" element={<SpotListPage />} />
-            
+
             {/* 公告动态 */}
             <Route path="/announcements" element={<AnnouncementPage />} />
-            
+
             {/* 个人中心 */}
             <Route path="/profile" element={<UserProfilePage />} />
-            
+
             {/* 默认跳转 */}
             <Route path="/" element={<Navigate to="/home" replace />} />
             <Route path="*" element={<Navigate to="/home" replace />} />

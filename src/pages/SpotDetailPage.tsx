@@ -247,7 +247,7 @@ const SpotDetailPage = () => {
             </Button>
             <Slider
               value={audioProgress}
-              onChange={(value) => setAudioProgress(value as number)}
+              onChange={value => setAudioProgress(value as number)}
               style={{ marginTop: '10px' }}
               min={0}
               max={100}

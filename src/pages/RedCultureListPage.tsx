@@ -13,7 +13,7 @@ import './global.css';
 
 const RedCultureListPage = () => {
   const navigate = useNavigate();
-  
+
   // 过滤红色景点
   const redSpots = SPOTS_DATA.filter(s => s.category === 'red');
 
@@ -42,12 +42,14 @@ const RedCultureListPage = () => {
       <NavBar
         back="返回"
         onBack={handleBack}
-        style={{
-          '--height': '50px',
-          backgroundColor: '#dc2626',
-          color: 'white',
-          '--border-bottom': 'none',
-        } as any}
+        style={
+          {
+            '--height': '50px',
+            backgroundColor: '#dc2626',
+            color: 'white',
+            '--border-bottom': 'none',
+          } as any
+        }
       >
         <span style={{ color: 'white', fontWeight: 600 }}>🔴 红色文旅</span>
       </NavBar>
@@ -58,7 +60,7 @@ const RedCultureListPage = () => {
         heightRatio={0.333}
         center={[118.205, 25.235]}
         zoom={17}
-        onSelectSpot={(spot) => handleSpotClick(spot.id)}
+        onSelectSpot={spot => handleSpotClick(spot.id)}
       />
 
       {/* 列表标题 */}
@@ -83,12 +85,16 @@ const RedCultureListPage = () => {
               key={spot.id}
               onClick={() => handleSpotClick(spot.id)}
               arrow={<RightOutline />}
-              style={{
-                '--padding-left': '16px',
-                '--padding-right': '16px',
-              } as any}
+              style={
+                {
+                  '--padding-left': '16px',
+                  '--padding-right': '16px',
+                } as any
+              }
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <div
+                style={{ display: 'flex', alignItems: 'center', gap: '12px' }}
+              >
                 {/* 红色圆点 */}
                 <div
                   style={{
@@ -109,7 +115,13 @@ const RedCultureListPage = () => {
                 </div>
                 {/* 景点信息 */}
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontWeight: 600, color: '#1f2937', marginBottom: '2px' }}>
+                  <div
+                    style={{
+                      fontWeight: 600,
+                      color: '#1f2937',
+                      marginBottom: '2px',
+                    }}
+                  >
                     {spot.name}
                   </div>
                   <div style={{ fontSize: '12px', color: '#6b7280' }}>
@@ -117,7 +129,14 @@ const RedCultureListPage = () => {
                   </div>
                   {/* 标签 */}
                   {spot.tags && spot.tags.length > 0 && (
-                    <div style={{ marginTop: '4px', display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+                    <div
+                      style={{
+                        marginTop: '4px',
+                        display: 'flex',
+                        gap: '4px',
+                        flexWrap: 'wrap',
+                      }}
+                    >
                       {spot.tags.slice(0, 2).map((tag, i) => (
                         <span
                           key={i}
@@ -139,7 +158,7 @@ const RedCultureListPage = () => {
             </List.Item>
           ))}
         </List>
-        
+
         {/* 底部提示 */}
         <div
           style={{

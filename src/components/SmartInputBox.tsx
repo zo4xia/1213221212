@@ -468,7 +468,7 @@ const SmartInputBox: React.FC = () => {
           size="large"
           onClick={() => setInputText('')}
           style={{
-            height: 'clamp(40px, 10vw, 48px)'
+            height: 'clamp(40px, 10vw, 48px)',
           }}
         >
           清空
